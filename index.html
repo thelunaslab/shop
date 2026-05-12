@@ -373,6 +373,24 @@
         font-size: 14px;
         margin-top: 8px;
       }
+
+      .ribbon-gold {
+        display: inline-block;
+        background: linear-gradient(to bottom, #d49a2a 0%, #b87b00 100%);
+        /* Gold gradient */
+        color: white;
+        padding: 0px 15px;
+        /* Extra horizontal padding for the notches */
+        font-family: 'Times New Roman', serif;
+        /* Serif font like the image */
+        font-weight: bold;
+        font-size: 10px;
+        letter-spacing: 1px;
+        /* This creates the fishtail/swallowtail shape */
+        clip-path: polygon(10% 0, 100% 0, 90% 50%, 100% 100%, 10% 100%, 0 50%);
+        /* Optional: adds a subtle text shadow for depth */
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+      }
     </style>
   </head>
 
@@ -397,7 +415,7 @@
         <!-- Combos -->
         <div class="card">
           <div class="info">
-            <div class="name-combo"><span class="combo-label">&nbsp;Combo 1&nbsp;</span>&nbsp;The Luna's Duo</div>
+            <div class="name-combo"><span class="combo-label">&nbsp;Combo 1&nbsp;</span>&nbsp;The Luna's Duo&nbsp;&nbsp;<span class="ribbon-gold">★ BEST SELLER</span></div>
             <div class="combo-products">Mango Float Mini (250ml)<br>+ Coffee Crumble Mini (250ml)</div>
             <div class="name"><span class="name-strike">₹600</span>&nbsp;&nbsp;₹549</div>
           </div>
