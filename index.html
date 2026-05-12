@@ -380,12 +380,32 @@
         /* Gold gradient */
         color: white;
         padding: 1px 13px;
+        padding-bottom: 2.5px;
         /* Extra horizontal padding for the notches */
-        //font-family: 'Times New Roman', serif;
+        /* font-family: 'Times New Roman', serif; */
         /* Serif font like the image */
         font-weight: bold;
         font-size: 10px;
-        letter-spacing: 0px;
+        letter-spacing: 1px;
+        /* This creates the fishtail/swallowtail shape */
+        clip-path: polygon(0 0, 100% 0, 90% 50%, 100% 100%, 0 100%, 10% 50%);
+        /* Optional: adds a subtle text shadow for depth */
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+      }
+
+      .ribbon-magenta {
+        display: inline-block;
+        background: linear-gradient(to bottom, #e05695 0%, #c2005d 100%);
+        /* Gold gradient */
+        color: white;
+        padding: 1px 13px;
+        padding-bottom: 2.5px;
+        /* Extra horizontal padding for the notches */
+        /* font-family: 'Times New Roman', serif; */
+        /* Serif font like the image */
+        font-weight: bold;
+        font-size: 10px;
+        letter-spacing: 1px;
         /* This creates the fishtail/swallowtail shape */
         clip-path: polygon(0 0, 100% 0, 90% 50%, 100% 100%, 0 100%, 10% 50%);
         /* Optional: adds a subtle text shadow for depth */
@@ -417,7 +437,7 @@
           <div class="info">
             <div class="name-combo"><span class="combo-label">&nbsp;Combo 1&nbsp;</span>&nbsp;The Luna's Duo</div>
             <div class="combo-products">Mango Float Mini (250ml)<br>+ Coffee Crumble Mini (250ml)</div>
-            <div class="name"><span class="name-strike">₹600</span>&nbsp;&nbsp;₹549&nbsp;&nbsp;&nbsp;&nbsp;<span class="ribbon-gold">★ BEST SELLER</span></div>
+            <div class="name"><span class="name-strike">₹600</span>&nbsp;&nbsp;₹549&nbsp;&nbsp;&nbsp;&nbsp;<span class="ribbon-gold">&nbsp;★ BEST SELLER&nbsp;</span></div>
           </div>
           <button type="button" class="add-btn" onclick="addItem('combo_1', this)">ADD</button>
           <div class="counter" id="combo_1_counter">
@@ -432,7 +452,7 @@
           <div class="info">
             <div class="name-combo"><span class="combo-label">&nbsp;Combo 2&nbsp;</span>&nbsp;Signature Pair</div>
             <div class="combo-products">Mango Float Grande (400ml)<br>+ Coffee Crumble Grande (400ml)</div>
-            <div class="name"><span class="name-strike">₹900</span>&nbsp;&nbsp;₹799</div>
+            <div class="name"><span class="name-strike">₹900</span>&nbsp;&nbsp;₹799&nbsp;&nbsp;&nbsp;&nbsp;<span class="ribbon-magenta">&nbsp;★ SIGNATURE&nbsp;</span></div>
           </div>
           <button type="button" class="add-btn" onclick="addItem('combo_2', this)">ADD</button>
           <div class="counter" id="combo_2_counter">
