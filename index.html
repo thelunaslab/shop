@@ -411,6 +411,61 @@
         /* Optional: adds a subtle text shadow for depth */
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
       }
+
+      /* CART MODAL */
+      .cart-modal {
+        display: none;
+        position: fixed;
+        z-index: 10001;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        justify-content: center;
+        align-items: center;
+      }
+
+      .cart-modal-content {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        width: 90%;
+        max-width: 400px;
+      }
+
+      .cart-modal table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+
+      .cart-modal th,
+      .cart-modal td {
+        border-bottom: 1px solid #eee;
+        padding: 8px;
+        text-align: left;
+      }
+
+      .close-btn {
+        margin-top: 15px;
+        width: 100%;
+        padding: 10px;
+        border: none;
+        background: #275538;
+        color: white;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .cart-modal {
+        cursor: pointer;
+      }
+
+      .cart-modal-content {
+        cursor: default;
+      }
     </style>
   </head>
 
@@ -419,7 +474,7 @@
       <img src="./lunaslogo.jpg" class="logo">
     </div>
     <p class="subtitle">Mabuhay! Welcome sa Luna's</p>
-    <div class="floating-cart" id="cartBar">Selected: 0 item(s)</div>
+    <div class="floating-cart" id="cartBar" onclick="openCartModal()">🛒 0</div>
     <div class="message-section">
       <p>Every item is lovingly handmade in limited batches to preserve its natural freshness and ensure premium quality, free from artificial preservatives. After receiving your order, we will contact you via WhatsApp or email with availability and payment details to confirm the order.</p>
       <p>Delivery is FREE for the <b>1st Order</b> in our coverage area (<b>Kalyani Nagar</b>, <b>Koregaon Park</b>, <b>Viman Nagar</b> and <b>Yerwada</b>). Delivery fee of <b>₹35</b> is applicable thereafter.</p>
@@ -630,6 +685,28 @@
       <span class="success-message">Love,</span>
       <span class="success-message">Luna's</span>
     </div>
+
+    <!-- CART MODAL -->
+    <div id="cartModal" class="cart-modal" onclick="outsideModalClick(event)">
+      <div class="cart-modal-content">
+
+        <h3>Your Cart</h3>
+
+        <table id="cartTable">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Qty</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+
+        <button onclick="closeCartModal()" class="close-btn">Close</button>
+
+      </div>
+    </div>
+
     <script>
       let isSubmitting = false;
       const scriptURL = "https://script.google.com/macros/s/AKfycbyEva96_JVfbMu869rEBxGqm5gEfGk4L1W4kX5ZJa_fGano-wLQKPmQiKKlF4MbNggk/exec";
@@ -677,7 +754,7 @@
         const bar = document.getElementById("cartBar");
         if (total > 0) {
           bar.style.display = "block";
-          bar.innerText = "Selected: " + total + " item(s)";
+          bar.innerText = "🛒 " + total;
         } else {
           bar.style.display = "none";
         }
@@ -750,6 +827,59 @@
             }
           });
       });
+
+      function openCartModal() {
+        populateCartTable();
+        document.getElementById("cartModal").style.display = "flex";
+      }
+
+      function closeCartModal() {
+        document.getElementById("cartModal").style.display = "none";
+      }
+
+      function populateCartTable() {
+        const tbody = document.querySelector("#cartTable tbody");
+        tbody.innerHTML = "";
+        const products = {
+          combo_1: "The Luna's Duo",
+          combo_2: "Signature Pair",
+          combo_3: "Summer Chill Pair",
+          combo_4: "Coffee Lovers Pair",
+          combo_5: "Taste of Luna's",
+          mango_grande: "Mango Float Grande",
+          mango_mini: "Mango Float Mini",
+          coffee_grande: "Coffee Crumble Grande",
+          coffee_mini: "Coffee Crumble Mini",
+          coffee_jelly: "Coffee Jelly"
+        };
+        let hasItems = false;
+        Object.keys(products).forEach(id => {
+          const qty = parseInt(document.getElementById(id)?.value || 0);
+          if (qty > 0) {
+            hasItems = true;
+            const row = `
+        <tr>
+          <td>${products[id]}</td>
+          <td>${qty}</td>
+        </tr>
+      `;
+            tbody.insertAdjacentHTML("beforeend", row);
+          }
+        });
+        if (!hasItems) {
+          tbody.innerHTML =
+            `<tr><td colspan="2">Cart is empty</td></tr>`;
+        }
+      }
+
+      function outsideModalClick(event) {
+        const modalContent =
+          document.querySelector(".cart-modal-content");
+        // if user clicked outside modal box
+        if (!modalContent.contains(event.target)) {
+          closeCartModal();
+        }
+      }
     </script>
   </body>
 
