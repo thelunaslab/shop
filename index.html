@@ -476,7 +476,7 @@
       <img src="./lunaslogo.jpg" class="logo">
     </div>
     <p class="subtitle">Mabuhay! Welcome sa Luna's</p>
-    <div class="floating-cart" id="cartBar" onclick="openCartModal()">🛒 0</div>
+    <div class="floating-cart" id="cartBar" onclick="openCartModal()">🧺 0</div>
     <div class="message-section">
       <p>Every item is lovingly handmade in limited batches to preserve its natural freshness and ensure premium quality, free from artificial preservatives. After receiving your order, we will contact you with availability and payment details to confirm the order.</p>
       <p>Delivery is FREE for the <b>1st Order</b> in our coverage area (<b>Kalyani Nagar</b>, <b>Koregaon Park</b>, <b>Viman Nagar</b> and <b>Yerwada</b>). Delivery fee of <b>₹35</b> is applicable thereafter.</p>
@@ -694,7 +694,7 @@
     <div id="cartModal" class="cart-modal" onclick="outsideModalClick(event)">
       <div class="cart-modal-content">
 
-        <h3>🛒 Your Cart</h3>
+        <h3>🧺 Your Cart</h3>
 
         <table id="cartTable">
           <thead>
@@ -758,7 +758,7 @@
         const bar = document.getElementById("cartBar");
         if (total > 0) {
           bar.style.display = "block";
-          bar.innerText = "🛒 " + total;
+          bar.innerText = "🧺 " + total;
         } else {
           bar.style.display = "none";
         }
