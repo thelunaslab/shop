@@ -1,889 +1,423 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
   <head>
-    <title>Order Luna's</title>
-    <link rel="icon" type="image/png" href="./lunaslogo.jpg">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luna’s | Beyond Flavour</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+      :root {
+        --mango: #FFB800;		/* Mango Gold */
+        --espresso: #3E2723;	/* Espresso Brown */
+        --cream: #FFF8E1;		/* Cream Silk */
+      }
+
       body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--cream);
+        color: var(--espresso);
         margin: 0;
-        font-family: 'Segoe UI', sans-serif;
-        background: #f5f5f5;
+        scroll-behavior: smooth;
       }
 
-      .header {
+      .serif {
+        font-family: 'Playfair Display', serif;
+      }
+
+      /* THE EXACT COLOR TRANSITION FIX */
+      /* This makes the nav white on dark backgrounds and dark on light backgrounds automatically */
+      nav {
+        mix-blend-mode: difference;
+        color: white;
+        /* In 'difference' mode, white text on dark background stays light, on light it turns dark */
+      }
+
+      .btn-ritual {
+        background-color: var(--mango);
+        color: var(--espresso);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding: 12px 32px;
+        font-size: 11px;
+        border-radius: 4px;
+        display: inline-block;
+      }
+
+      .btn-ritual:hover {
+        transform: scale(1.05);
+		cursor: pointer;
+      }
+
+      /* Precise Asymmetric Grid Logic */
+      .grid-container {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 2rem;
+      }
+
+      .mango-float-pos {
+        grid-column: 1 / span 5;
+        margin-top: 0px;
+      }
+
+      .coffee-crumble-pos {
+        grid-column: 7 / span 5;
+        margin-top: 0px;
+      }
+
+      .mango-float-mini-pos {
+        grid-column: 1 / span 5;
+        margin-top: 100px;
+      }
+
+      .coffee-crumble-mini-pos {
+        grid-column: 7 / span 5;
+        margin-top: 100px;
+      }
+
+      .coffee-jelly-pos {
+        grid-column: 4 / span 5;
+        margin-top: 100px;
+      }
+
+      .image-box {
         background: white;
-        padding: 12px 15px;
-        font-size: 20px;
-        font-weight: bold;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-        position: sticky;
-        top: 0;
-        z-index: 10;
+        padding: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
       }
 
-      .logo {
-        width: 72px;
-        height: 72px;
+      section {
+        padding: 120px 0;
+      }
+
+      /* =========================
+   CAROUSEL
+=========================*/
+      .carousel-wrapper {
+        position: relative;
+        overflow: visible;
+      }
+
+      .carousel {
+        display: flex;
+        gap: 30px;
+        transition: transform .5s ease;
+      }
+
+      /* =========================
+   CARD (MATCH ASPECT)
+=========================*/
+      .card {
+        flex: 0 0 360px;
+        border-radius: 22px;
+        padding: 18px;
+        text-align: center;
+        //border: 1px solid #e6dfd2;
+        border: 2px solid #ddd2bc;
+        border-radius: 30px;
+      }
+
+      .card img {
+        width: 100%;
+        aspect-ratio: 1.35/1;
+        /* EXACT VISUAL MATCH */
         object-fit: cover;
-        border-radius: 36px;
-        /* makes it look nicer */
+        border-radius: 18px;
+      }
+
+      .card h3 {
+        margin: 16px 0 5px;
+        font-weight: 500;
+        font-size: 20px;
       }
 
       .subtitle {
-        text-align: center;
-        color: #777;
-        margin-bottom: 15px;
-      }
-
-      .floating-cart {
-        position: fixed;
-        top: 24px;
-        right: 24px;
-        background: #275538;
-        color: white;
-        padding: 8px 12px;
-        border-radius: 20px;
-        font-weight: bold;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-        display: none;
-        z-index: 999;
         font-size: 14px;
-      }
-
-      .container {
-        padding: 10px;
-        padding-bottom: 20px;
-      }
-
-      .card {
-        background: white;
-        border-radius: 12px;
-        padding: 12px;
-        margin-bottom: 12px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
-      }
-
-      .combo-label {
-        background: #568203;
-        color: #fff;
-        font-size: 14px;
-        border: none;
-        padding: 1px 2px;
-        border-radius: 6px;
-        font-weight: bold;
-      }
-
-      .product-qty {
-        font-size: 13px;
         color: #777;
       }
 
-      .combo-products {
-        font-size: 13px;
-        color: #777;
-      }
-
-      .info {
-        max-width: 65%;
-      }
-
-      .name {
+      .price {
+        margin-top: 10px;
+        font-size: 18px;
         font-weight: 600;
-        font-size: 15px;
       }
 
-      .name-strike {
-        position: relative;
-        display: inline-block;
-        /* Required for precise positioning */
-        font-weight: 600;
-        font-size: 15px;
-        color: #777;
-      }
-
-      .name-strike::before {
-        content: "";
+      /* =========================
+   ARROWS
+=========================*/
+      .arrow {
         position: absolute;
         top: 50%;
-        left: 0;
-        width: 100%;
-        height: 1.5px;
-        background: red;
-        transform: rotate(-5deg);
-        /* Adjust degrees for steeper/flatter line */
-      }
-
-      .name-mango {
-        font-weight: bold;
-        font-size: 15px;
-        color: #FFA62B;
-      }
-
-      .name-coffee {
-        font-weight: bold;
-        font-size: 15px;
-        color: #6F4E37;
-      }
-
-      .name-combo {
-        font-weight: bold;
-        font-size: 15px;
-      }
-
-      .desc {
-        font-size: 12px;
-        color: gray;
-      }
-
-      .add-btn {
-        border: 2px solid #275538;
-        color: #275538;
-        padding: 6px 14px;
-        border-radius: 6px;
-        font-weight: bold;
-        background: white;
-        cursor: pointer;
-      }
-
-      .counter {
-        display: none;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .counter button {
-        width: 28px;
-        height: 28px;
-        border: none;
-        background: #275538;
-        color: white;
-        font-size: 16px;
-        border-radius: 6px;
-        cursor: pointer;
-      }
-
-      .form-section {
-        background: white;
-        padding: 15px;
-        margin-top: 10px;
-        border-radius: 12px;
-      }
-
-      .message-section {
-        background: white;
-        padding: 15px;
-		padding-top: 5px;
-		padding-bottom: 5px;
-        margin-top: 10px;
-        border-radius: 12px;
-        font-size: 14px;
-      }
-
-      input,
-      textarea {
-        width: 95%;
-        padding: 10px;
-        margin-top: 8px;
-        margin-bottom: 12px;
-        border-radius: 8px;
-        border: 1px solid #ddd;
-      }
-
-      select {
-        width: 100%;
-        padding: 10px;
-        margin-top: 8px;
-        margin-bottom: 12px;
-        border-radius: 8px;
-        border: 1px solid #ddd;
-      }
-
-      button.submit {
-        width: 100%;
-        padding: 12px;
-        border: none;
-        border-radius: 8px;
-        background: #28a745;
-        color: white;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-      }
-
-      button.submit:disabled {
-        background: #ccc;
-      }
-
-      /* LOADING OVERLAY */
-      #loadingOverlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.9);
-        display: none;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        z-index: 9999;
-      }
-
-      /* SPINNER */
-      .spinner {
-        width: 50px;
-        height: 50px;
-        border: 5px solid #eee;
-        border-top: 5px solid #28a745;
+        transform: translateY(-50%);
+        width: 42px;
+        height: 42px;
         border-radius: 50%;
-        animation: spin 1s linear infinite;
-      }
-
-      @keyframes spin {
-        from {
-          transform: rotate(0deg);
-        }
-
-        to {
-          transform: rotate(360deg);
-        }
-      }
-
-      #loadingOverlay p {
-        margin-top: 15px;
-        font-weight: bold;
-        color: #333;
-      }
-
-      /* SUCCESS OVERLAY */
-      #successOverlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        border: 1px solid #ddd;
         background: white;
-        display: none;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        z-index: 10000;
+        cursor: pointer;
+        font-size: 20px;
+        z-index: 200;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, .15);
+        transition: .25s;
       }
 
-      /* CHECKMARK */
-      .success-checkmark {
-        width: 80px;
-        height: 115px;
+      .arrow:hover {
+        background: #fafafa;
+        transform: translateY(-50%) scale(1.08);
       }
 
-      .check-icon {
-        width: 80px;
-        height: 80px;
-        position: relative;
+      .left {
+        left: -60px;
+      }
+
+      .right {
+        right: -60px;
+      }
+
+      /* =========================
+   DOTS
+=========================*/
+      .dots {
+        text-align: center;
+        margin-top: 25px;
+      }
+
+      .dot {
+        width: 8px;
+        height: 8px;
+        background: #d5d0c7;
         border-radius: 50%;
-        box-sizing: content-box;
-        border: 4px solid #28a745;
-      }
-
-      .check-icon::before,
-      .check-icon::after {
-        content: '';
-        height: 100px;
-        position: absolute;
-        background: white;
-        transform: rotate(-45deg);
-      }
-
-      .icon-line {
-        height: 5px;
-        background-color: #28a745;
-        display: block;
-        border-radius: 2px;
-        position: absolute;
-        z-index: 10;
-      }
-
-      .line-tip {
-        top: 46px;
-        left: 14px;
-        width: 25px;
-        transform: rotate(45deg);
-        animation: icon-line-tip 0.4s;
-      }
-
-      .line-long {
-        top: 38px;
-        right: 8px;
-        width: 47px;
-        transform: rotate(-45deg);
-        animation: icon-line-long 0.4s;
-      }
-
-      @keyframes icon-line-tip {
-        from {
-          width: 0;
-        }
-
-        to {
-          width: 25px;
-        }
-      }
-
-      @keyframes icon-line-long {
-        from {
-          width: 0;
-        }
-
-        to {
-          width: 47px;
-        }
-      }
-
-      .success-message {
-        margin-top: 0px;
-        font-size: 14px;
-        font-weight: bold;
-        color: #28a745;
-      }
-
-      label {
-        display: block;
-        font-weight: 600;
-        font-size: 14px;
-        margin-top: 8px;
-      }
-
-      .required {
-        color: red;
-        margin-left: 3px;
-      }
-
-      .required-field {
-        color: red;
-        margin-left: 3px;
-        display: block;
-        font-weight: 400;
-        font-size: 14px;
-        margin-top: 8px;
-      }
-
-      .ribbon-gold {
         display: inline-block;
-        background: linear-gradient(to bottom, #d49a2a 0%, #b87b00 100%);
-        /* Gold gradient */
-        color: white;
-        padding: 1px 13px;
-        padding-bottom: 2.5px;
-        /* Extra horizontal padding for the notches */
-        /* font-family: 'Times New Roman', serif; */
-        /* Serif font like the image */
-        font-weight: bold;
-        font-size: 10px;
-        letter-spacing: 1px;
-        /* This creates the fishtail/swallowtail shape */
-        clip-path: polygon(0 0, 100% 0, 90% 50%, 100% 100%, 0 100%, 10% 50%);
-        /* Optional: adds a subtle text shadow for depth */
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-      }
-
-      .ribbon-magenta {
-        display: inline-block;
-        background: linear-gradient(to bottom, #e05695 0%, #c2005d 100%);
-        /* Gold gradient */
-        color: white;
-        padding: 1px 13px;
-        padding-bottom: 2.5px;
-        /* Extra horizontal padding for the notches */
-        /* font-family: 'Times New Roman', serif; */
-        /* Serif font like the image */
-        font-weight: bold;
-        font-size: 10px;
-        letter-spacing: 1px;
-        /* This creates the fishtail/swallowtail shape */
-        clip-path: polygon(0 0, 100% 0, 90% 50%, 100% 100%, 0 100%, 10% 50%);
-        /* Optional: adds a subtle text shadow for depth */
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-      }
-
-      /* CART MODAL */
-      .cart-modal {
-        display: none;
-        position: fixed;
-        z-index: 10001;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.6);
-        justify-content: center;
-        align-items: center;
-      }
-
-      .cart-modal-content {
-        background: white;
-        padding: 20px;
-        border-radius: 12px;
-        width: 90%;
-        max-width: 400px;
-      }
-
-      .cart-modal table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 10px;
-      }
-
-      .cart-modal th,
-      .cart-modal td {
-        border-bottom: 1px solid #eee;
-        padding: 8px;
-        text-align: left;
-      }
-
-      .close-btn {
-        margin-top: 15px;
-        width: 100%;
-        padding: 10px;
-        border: none;
-        background: #275538;
-        color: white;
-        border-radius: 8px;
-        font-weight: bold;
+        margin: 6px;
         cursor: pointer;
+        transition: .3s;
       }
 
-      .cart-modal {
-        cursor: pointer;
+      .dot.active {
+        background: #222;
+        transform: scale(1.3);
       }
 
-      .cart-modal-content {
-        cursor: default;
+      /* =========================
+   MOBILE
+=========================*/
+      @media(max-width:768px) {
+        .title {
+          font-size: 30px;
+        }
+
+        .card {
+          flex: 0 0 280px;
+        }
       }
     </style>
   </head>
 
   <body>
-    <div class="header">
-      <img src="./lunaslogo.jpg" class="logo">
-    </div>
-    <p class="subtitle">Mabuhay! Welcome sa Luna's</p>
-    <div class="floating-cart" id="cartBar" onclick="openCartModal()">🧺 0</div>
-    <div class="message-section">
-      <p>Every item is lovingly handmade in limited batches to preserve its natural freshness and ensure premium quality, free from artificial preservatives. After receiving your order, we will contact you with availability and payment details to confirm the order.</p>
-      <p>Delivery is FREE for the <b>1st Order</b> in our coverage area (<b>Kalyani Nagar</b>, <b>Koregaon Park</b>, <b>Viman Nagar</b> and <b>Yerwada</b>). Delivery fee of <b>₹35</b> is applicable thereafter.</p>
-      <p>Deliveries outside our coverage area are subject to feasibility and will have additional delivery charges, which will be confirmed based on your location.</p>
-      <p>Orders received <b>before 6 PM</b> will be <b>delivered the next day</b> during chosen time slot.</p>
-	  <p>Orders received <b>after 6 PM</b> are subject to stock availability and re-stocking, we will <b>contact you to confirm</b>.</p>
-      <p>Please ensure your availability during the chosen time slot for a smooth delivery experience.</p>
-	  <p>We also accept bulk orders for businesses and events.</p>
-      <p>If you have any queries please feel free to contact us -<br><b>WhatsApp</b>: <a href="https://wa.me/9604320903" target="_blank" rel="noopener noreferrer">(+91) 9604320903</a><br><b>Instagram</b>: <a href="https://www.instagram.com/thelunaslab" target="_blank" rel="noopener noreferrer">@thelunaslab</a></p>
-    </div>
-    <div class="container">
-      <form id="orderForm">
-        <!-- PRODUCTS -->
 
-        <!-- Combos -->
-        <div class="card">
-          <div class="info">
-            <div class="name-combo"><span class="combo-label">&nbsp;Combo 1&nbsp;</span>&nbsp;The Luna's Duo</div>
-            <div class="combo-products">Mango Float Mini (250ml)<br>+ Coffee Crumble Mini (250ml)</div>
-            <div class="name"><span class="name-strike">₹600</span>&nbsp;&nbsp;₹549&nbsp;&nbsp;&nbsp;&nbsp;<span class="ribbon-gold">&nbsp;★ BEST SELLER&nbsp;</span></div>
-          </div>
-          <button type="button" class="add-btn" onclick="addItem('combo_1', this)">ADD</button>
-          <div class="counter" id="combo_1_counter">
-            <button type="button" onclick="changeQty('combo_1', -1)">-</button>
-            <span id="combo_1_display">1</span>
-            <button type="button" id="combo_1_plus" onclick="changeQty('combo_1', 1)">+</button>
-          </div>
-          <input type="hidden" id="combo_1" value="0">
+    <nav class="fixed top-0 w-full z-50 flex justify-between items-center px-10 py-10">
+      <div class="flex flex-col">
+        <p class="text-2xl font-bold uppercase tracking-tighter" style="letter-spacing: 5px;">Luna’<span style="font-size: 75%;">s</span></p>
+        <span class="text-[9px] tracking-[0.4em] uppercase opacity-80">Beyond Flavour</span>
+      </div>
+      <div class="hidden md:flex space-x-12 text-[12px] uppercase tracking-[0.2em] font-bold">
+        <a href="#collection" class="nav-item hover:opacity-50">Collection</a>
+        <a href="#combos" class="nav-item hover:opacity-50">Combos</a>
+        <a href="#story" class="nav-item hover:opacity-50">Our Story</a>
+        <a href="#contact" class="nav-item hover:opacity-50">Contact</a>
+        <a href="https://thelunaslab.github.io/shop" class="nav-item hover:opacity-50">Order</a>
+      </div>
+      <!--
+        <div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
         </div>
+-->
+    </nav>
 
-        <div class="card">
-          <div class="info">
-            <div class="name-combo"><span class="combo-label">&nbsp;Combo 2&nbsp;</span>&nbsp;Signature Pair</div>
-            <div class="combo-products">Mango Float Grande (400ml)<br>+ Coffee Crumble Grande (400ml)</div>
-            <div class="name"><span class="name-strike">₹900</span>&nbsp;&nbsp;₹799&nbsp;&nbsp;&nbsp;&nbsp;<span class="ribbon-magenta">&nbsp;★ SIGNATURE&nbsp;</span></div>
-          </div>
-          <button type="button" class="add-btn" onclick="addItem('combo_2', this)">ADD</button>
-          <div class="counter" id="combo_2_counter">
-            <button type="button" onclick="changeQty('combo_2', -1)">-</button>
-            <span id="combo_2_display">1</span>
-            <button type="button" id="combo_2_plus" onclick="changeQty('combo_2', 1)">+</button>
-          </div>
-          <input type="hidden" id="combo_2" value="0">
+    <section class="h-screen flex items-center bg-black relative overflow-hidden" style="padding:0;">
+      <img src="./images/hero.png" class="absolute inset-0 w-full h-full object-cover opacity-60">
+      <div class="relative px-10 md:px-20 z-10">
+        <h1 class="text-white text-6xl md:text-8xl leading-[1.1] mb-12">
+          A Taste of the <br>Philippines. <br>Hand-Crafted <br>in Pune.
+        </h1>
+        <a href="https://thelunaslab.github.io/shop" class="btn-ritual">Order Now</a>
+      </div>
+      <!--
+        <div class="absolute bottom-12 left-10 md:left-20 bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-sm flex items-center gap-4 text-white">
+            <span class="text-[9px] uppercase tracking-[0.3em] font-bold">Summer Chill Pair</span>
+            <div class="flex -space-x-2">
+                <div class="w-6 h-6 rounded-full border-2 border-white bg-[#FFB800]"></div>
+                <div class="w-6 h-6 rounded-full border-2 border-white bg-[#3E2723]"></div>
+            </div>
         </div>
+-->
+    </section>
 
-        <div class="card">
-          <div class="info">
-            <div class="name-combo"><span class="combo-label">&nbsp;Combo 3&nbsp;</span>&nbsp;Summer Chill Pair</div>
-            <div class="combo-products">Mango Float Mini (250ml)<br>+ Coffee Jelly (300ml)</div>
-            <div class="name"><span class="name-strike">₹554</span>&nbsp;&nbsp;₹499</div>
+    <section id="collection" class="container mx-auto px-10">
+      <h2 class="text-5xl md:text-7xl mb-32 uppercase tracking-tighter">Our Collection</h2>
+
+      <div class="grid-container">
+        <div class="mango-float-pos">
+          <div class="image-box mb-8">
+            <img src="./images/product_1.png" class="w-full h-auto">
           </div>
-          <button type="button" class="add-btn" onclick="addItem('combo_3', this)">ADD</button>
-          <div class="counter" id="combo_3_counter">
-            <button type="button" onclick="changeQty('combo_3', -1)">-</button>
-            <span id="combo_3_display">1</span>
-            <button type="button" id="combo_3_plus" onclick="changeQty('combo_3', 1)">+</button>
-          </div>
-          <input type="hidden" id="combo_3" value="0">
+          <h3 class="text-2xl mb-4">Mango Float Grande [400ml]</h3>
+          <p class="text-[10px] uppercase tracking-widest opacity-60 mb-6">Ripe, Creamy, Pure Bliss. Layers of mango, cream, and summer in every spoon.</p>
+          <a href="https://thelunaslab.github.io/shop" class="btn-ritual">Order Now</a>
         </div>
 
-        <div class="card">
-          <div class="info">
-            <div class="name-combo"><span class="combo-label">&nbsp;Combo 4&nbsp;</span>&nbsp;Coffee Lovers Pair</div>
-            <div class="combo-products">Coffee Crumble Mini (250ml)<br>+ Coffee Jelly (300ml)</div>
-            <div class="name"><span class="name-strike">₹504</span>&nbsp;&nbsp;₹449</div>
+        <div class="coffee-crumble-pos">
+          <div class="image-box mb-8">
+            <img src="./images/product_1.png" class="w-full h-auto">
           </div>
-          <button type="button" class="add-btn" onclick="addItem('combo_4', this)">ADD</button>
-          <div class="counter" id="combo_4_counter">
-            <button type="button" onclick="changeQty('combo_4', -1)">-</button>
-            <span id="combo_4_display">1</span>
-            <button type="button" id="combo_4_plus" onclick="changeQty('combo_4', 1)">+</button>
-          </div>
-          <input type="hidden" id="combo_4" value="0">
+          <h3 class="text-2xl mb-4">Coffee Crumble Grande [400ml]</h3>
+          <p class="text-[10px] uppercase tracking-widest opacity-60 mb-6">Bittersweet. Decadent. A taste of the Philippines you'll fall in love with.</p>
+          <a href="https://thelunaslab.github.io/shop" class="btn-ritual">Order Now</a>
         </div>
 
-        <div class="card">
-          <div class="info">
-            <div class="name-combo"><span class="combo-label">&nbsp;Combo 5&nbsp;</span>&nbsp;Taste of Luna's</div>
-            <div class="combo-products">Mango Float Mini (250ml)<br>+ Coffee Crumble Mini (250ml)<br>+ Coffee Jelly (300ml)</div>
-            <div class="name"><span class="name-strike">₹829</span>&nbsp;&nbsp;₹729</div>
+        <div class="mango-float-mini-pos">
+          <div class="image-box mb-8">
+            <img src="./images/product_1.png" class="w-full h-auto">
           </div>
-          <button type="button" class="add-btn" onclick="addItem('combo_5', this)">ADD</button>
-          <div class="counter" id="combo_5_counter">
-            <button type="button" onclick="changeQty('combo_5', -1)">-</button>
-            <span id="combo_5_display">1</span>
-            <button type="button" id="combo_5_plus" onclick="changeQty('combo_5', 1)">+</button>
-          </div>
-          <input type="hidden" id="combo_5" value="0">
+          <h3 class="text-2xl mb-4">Mango Float Mini [250ml]</h3>
+          <p class="text-[10px] uppercase tracking-widest opacity-60 mb-6">Ripe, Creamy, Pure Bliss. Layers of mango, cream, and summer in every spoon.</p>
+          <a href="https://thelunaslab.github.io/shop" class="btn-ritual">Order Now</a>
         </div>
 
-        <!-- A-la-carte -->
-        <div class="card">
-          <div class="info">
-            <div class="name-mango">Mango Float Grande <span class="product-qty">(400ml)</span></div>
-            <div class="name">₹500</div>
+        <div class="coffee-crumble-mini-pos">
+          <div class="image-box mb-8">
+            <img src="./images/product_1.png" class="w-full h-auto">
           </div>
-          <button type="button" class="add-btn" onclick="addItem('mango_grande', this)">ADD</button>
-          <div class="counter" id="mango_grande_counter">
-            <button type="button" onclick="changeQty('mango_grande', -1)">-</button>
-            <span id="mango_grande_display">1</span>
-            <button type="button" id="mango_grande_plus" onclick="changeQty('mango_grande', 1)">+</button>
-          </div>
-          <input type="hidden" id="mango_grande" value="0">
-        </div>
-        <div class="card">
-          <div class="info">
-            <div class="name-mango">Mango Float Mini <span class="product-qty">(250ml)</span></div>
-            <div class="name">₹325</div>
-          </div>
-          <button type="button" class="add-btn" onclick="addItem('mango_mini', this)">ADD</button>
-          <div class="counter" id="mango_mini_counter">
-            <button type="button" onclick="changeQty('mango_mini', -1)">-</button>
-            <span id="mango_mini_display">1</span>
-            <button type="button" id="mango_mini_plus" onclick="changeQty('mango_mini', 1)">+</button>
-          </div>
-          <input type="hidden" id="mango_mini" value="0">
-        </div>
-        <div class="card">
-          <div class="info">
-            <div class="name-coffee">Coffee Crumble Grande <span class="product-qty">(400ml)</span></div>
-            <div class="name">₹400</div>
-          </div>
-          <button type="button" class="add-btn" onclick="addItem('coffee_grande', this)">ADD</button>
-          <div class="counter" id="coffee_grande_counter">
-            <button type="button" onclick="changeQty('coffee_grande', -1)">-</button>
-            <span id="coffee_grande_display">1</span>
-            <button type="button" id="coffee_grande_plus" onclick="changeQty('coffee_grande', 1)">+</button>
-          </div>
-          <input type="hidden" id="coffee_grande" value="0">
-        </div>
-        <div class="card">
-          <div class="info">
-            <div class="name-coffee">Coffee Crumble Mini <span class="product-qty">(250ml)</span></div>
-            <div class="name">₹275</div>
-          </div>
-          <button type="button" class="add-btn" onclick="addItem('coffee_mini', this)">ADD</button>
-          <div class="counter" id="coffee_mini_counter">
-            <button type="button" onclick="changeQty('coffee_mini', -1)">-</button>
-            <span id="coffee_mini_display">1</span>
-            <button type="button" id="coffee_mini_plus" onclick="changeQty('coffee_mini', 1)">+</button>
-          </div>
-          <input type="hidden" id="coffee_mini" value="0">
-        </div>
-        <div class="card">
-          <div class="info">
-            <div class="name-coffee">Coffee Jelly <span class="product-qty">(300ml)</span></div>
-            <div class="name">₹229</div>
-          </div>
-          <button type="button" class="add-btn" onclick="addItem('coffee_jelly', this)">ADD</button>
-          <div class="counter" id="coffee_jelly_counter">
-            <button type="button" onclick="changeQty('coffee_jelly', -1)">-</button>
-            <span id="coffee_jelly_display">1</span>
-            <button type="button" id="coffee_jelly_plus" onclick="changeQty('coffee_jelly', 1)">+</button>
-          </div>
-          <input type="hidden" id="coffee_jelly" value="0">
+          <h3 class="text-2xl mb-4">Coffee Crumble Mini [250ml]</h3>
+          <p class="text-[10px] uppercase tracking-widest opacity-60 mb-6">Bittersweet. Decadent. A taste of the Philippines you'll fall in love with.</p>
+          <a href="https://thelunaslab.github.io/shop" class="btn-ritual">Order Now</a>
         </div>
 
-        <!-- CUSTOMER DETAILS -->
-        <div class="form-section">
-          <h3>Customer Details <span class="required-field">* Indicates required field</span></h3>
-          <label>
-            Name <span class="required">*</span>
-          </label>
-          <input type="text" id="customer_name" required>
-          <label>
-            Mobile Number <span class="required">*</span>
-          </label>
-          <input type="tel" id="phone" required pattern="[6-9]{1}[0-9]{9}" maxlength="10" title="Enter valid 10-digit mobile number">
-          <label>
-            Delivery Address <span class="required">*</span>
-          </label>
-          <span class="product-qty">Please provide full and accurate address to ensure proper and timely delivery.</span>
-          <input type="text" id="address" required>
-          <label>
-            Delivery Slot <span class="required">*</span>
-          </label>
-          <select id="timeslot" required>
-            <option value="">Select one</option>
-            <option>11 AM - 1 PM</option>
-            <option>3 PM - 5 PM</option>
-            <option>7 PM - 9 PM</option>
-          </select>
-          <label>Email</label>
-          <input type="email" id="email" pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" title="Please enter a valid email (example: name@gmail.com)">
-          <label>Additional Note</label>
-          <input type="text" id="note">
-          <button type="submit" class="submit" id="submitBtn" disabled>Place Order</button>
-        </div>
-      </form>
-    </div>
-    <div id="loadingOverlay">
-      <div class="spinner"></div>
-      <p>Placing your order...</p>
-    </div>
-    <div id="successOverlay">
-      <div class="success-checkmark">
-        <div class="check-icon">
-          <span class="icon-line line-tip"></span>
-          <span class="icon-line line-long"></span>
-          <div class="icon-circle"></div>
-          <div class="icon-fix"></div>
+        <div class="coffee-jelly-pos">
+          <div class="image-box mb-8">
+            <img src="./images/product_3.png" class="w-full h-auto">
+          </div>
+          <h3 class="text-2xl mb-4">Coffee Jelly [300ml]</h3>
+          <p class="text-[10px] uppercase tracking-widest opacity-60 mb-6">Shake. Sip. Enjoy.</p>
+          <a href="https://thelunaslab.github.io/shop" class="btn-ritual">Order Now</a>
         </div>
       </div>
-      <span class="success-message">Maraming salamat po!</span>
-      <br>
-      <span class="success-message">Order placed successfully.</span>
-      <span class="success-message" id="orderNumber"></span>
-      <span class="success-message">We will contact you via WhatsApp as soon as possible.</span>
-      <br>
-      <span class="success-message">Love,</span>
-      <span class="success-message">Luna's</span>
-    </div>
+    </section>
 
-    <!-- CART MODAL -->
-    <div id="cartModal" class="cart-modal" onclick="outsideModalClick(event)">
-      <div class="cart-modal-content">
+    <section id="combos" class="bg-[#FFF8E1] py-32">
+      <div class="container mx-auto px-10 text-center">
+        <h2 class="text-5xl md:text-7xl mb-24 uppercase">Our Curated Pairs</h2>
+        <!-- CAROUSEL -->
+        <div class="carousel-wrapper">
 
-        <h3>🧺 Your Basket</h3>
+          <button class="arrow left" onclick="moveSlide(-1)">❮</button>
 
-        <table id="cartTable">
-          <thead>
-            <tr>
-              <th>&nbsp;&nbsp;&nbsp;&nbsp;Product</th>
-              <th>Qty</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+          <div class="carousel" id="carousel">
 
-        <button onclick="closeCartModal()" class="close-btn">Close</button>
+            <div class="card">
+              <img src="./images/combo_1.png">
+              <h3>Combo 1 - The Luna's Duo</h3>
+              <div class="subtitle">Perfect for your first time</div>
+              <div class="price">Special ₹549</div><br>
+              <a href="https://thelunaslab.github.io/shop" class="btn-ritual">Order Now</a>
+            </div>
 
+            <div class="card">
+              <img src="./images/combo_2.png">
+              <h3>Combo 2 - Signature Pair</h3>
+              <div class="subtitle">Our signature bestsellers</div>
+              <div class="price">Special ₹799</div><br>
+              <a href="https://thelunaslab.github.io/shop" class="btn-ritual">Order Now</a>
+            </div>
+
+            <div class="card">
+              <img src="./images/combo_3.png">
+              <h3>Combo 3 - Summer Chill Pair</h3>
+              <div class="subtitle">Refreshing and indulgent</div>
+              <div class="price">Special ₹499</div><br>
+              <a href="https://thelunaslab.github.io/shop" class="btn-ritual">Order Now</a>
+            </div>
+
+            <div class="card">
+              <img src="./images/combo_4.png">
+              <h3>Combo 4 - Coffee Lovers Pair</h3>
+              <div class="subtitle">Perfect for coffe lovers</div>
+              <div class="price">Special ₹449</div><br>
+              <a href="https://thelunaslab.github.io/shop" class="btn-ritual">Order Now</a>
+            </div>
+
+            <div class="card">
+              <img src="./images/combo_5.png">
+              <h3>Combo 5 - Taste of Luna's</h3>
+              <div class="subtitle">Try everything at once</div>
+              <div class="price">Special ₹729</div><br>
+              <a href="https://thelunaslab.github.io/shop" class="btn-ritual">Order Now</a>
+            </div>
+
+          </div>
+
+          <button class="arrow right" onclick="moveSlide(1)">❯</button>
+
+        </div>
+
+        <!-- DOTS -->
+        <div class="dots" id="dots"></div>
+      </div>
+    </section>
+    <!--
+    <div class="md:hidden fixed bottom-6 left-6 right-6 z-[60] bg-white p-6 rounded-3xl shadow-2xl">
+      <div class="flex items-center gap-4 mb-6">
+        <div class="w-16 h-16 bg-[#FFB800] rounded-xl"></div>
+        <div>
+          <p class="text-[10px] font-bold uppercase tracking-tight">Mini Mango Float (250ml)</p>
+          <p class="text-[9px] text-green-600 font-bold">Added to Ritual</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="bg-[#635BFF] text-white py-4 rounded-xl text-center text-[10px] font-bold uppercase tracking-widest">Shop Pay</div>
+        <div class="bg-[#25D366] text-white py-4 rounded-xl text-center text-[10px] font-bold uppercase tracking-widest">WhatsApp</div>
       </div>
     </div>
-
+	-->
     <script>
-      let isSubmitting = false;
-      const scriptURL = "https://script.google.com/macros/s/AKfycbyEva96_JVfbMu869rEBxGqm5gEfGk4L1W4kX5ZJa_fGano-wLQKPmQiKKlF4MbNggk/exec";
-
-      function addItem(id, btn) {
-        document.getElementById(id).value = 1;
-        document.getElementById(id + "_display").innerText = 1;
-        document.getElementById(id + "_counter").style.display = "flex";
-        btn.style.display = "none";
-        const plusBtn = document.getElementById(id + "_plus");
-        plusBtn.disabled = false;
-        plusBtn.style.opacity = "1";
-        plusBtn.style.cursor = "pointer";
-        updateCart();
+      const carousel = document.getElementById("carousel");
+      const cards = document.querySelectorAll(".card");
+      const dotsContainer = document.getElementById("dots");
+      let index = 0;
+      const visibleCards = 3;
+      const maxIndex = cards.length - visibleCards;
+      /* CREATE DOTS */
+      for (let i = 0; i <= maxIndex; i++) {
+        let dot = document.createElement("span");
+        dot.className = "dot";
+        dot.onclick = () => goTo(i);
+        dotsContainer.appendChild(dot);
       }
 
-      function changeQty(id, delta) {
-        let input = document.getElementById(id);
-        let val = Math.max(0, Math.min(5, parseInt(input.value) + delta));
-        input.value = val;
-        document.getElementById(id + "_display").innerText = val;
-        const plusBtn = document.getElementById(id + "_plus");
-        /* DISABLE + BUTTON AT MAX */
-        if (val >= 5) {
-          plusBtn.disabled = true;
-          plusBtn.style.opacity = "0.5";
-          plusBtn.style.cursor = "not-allowed";
-        } else {
-          plusBtn.disabled = false;
-          plusBtn.style.opacity = "1";
-          plusBtn.style.cursor = "pointer";
-        }
-        if (val === 0) {
-          document.getElementById(id + "_counter").style.display = "none";
-          document.querySelector(`[onclick="addItem('${id}', this)"]`).style.display = "block";
-        }
-        updateCart();
-      }
-
-      function updateCart() {
-        const ids = ["mango_grande", "mango_mini", "coffee_grande", "coffee_mini", "coffee_jelly", "combo_1", "combo_2", "combo_3", "combo_4", "combo_5"];
-        let total = ids.reduce((sum, id) =>
-          sum + parseInt(document.getElementById(id).value), 0
-        );
-        const bar = document.getElementById("cartBar");
-        if (total > 0) {
-          bar.style.display = "block";
-          bar.innerText = "🧺 " + total;
-        } else {
-          bar.style.display = "none";
-        }
-        document.getElementById("submitBtn").disabled = total === 0;
-      }
-      /* PREVENT BACK NAVIGATION DURING SUBMIT */
-      window.addEventListener("popstate", function() {
-        if (isSubmitting) {
-          history.pushState(null, null, location.href);
-        }
-      });
-      /* keep history locked */
-      history.pushState(null, null, location.href);
-      window.addEventListener("beforeunload", function(e) {
-        if (isSubmitting) {
-          e.preventDefault();
-          e.returnValue = "";
-        }
-      });
-      // phone restriction
-      document.getElementById("phone").addEventListener("input", function() {
-        this.value = this.value.replace(/[^0-9]/g, "");
-      });
-      /* NETWORK TIMEOUT PROTECTION */
-      function fetchWithTimeout(resource, options = {}, timeout = 120000) {
-        const controller = new AbortController();
-        const id = setTimeout(() => controller.abort(), timeout);
-        return fetch(resource, {
-          ...options,
-          signal: controller.signal
-        }).finally(() => clearTimeout(id));
-      }
-      document.getElementById("orderForm").addEventListener("submit", function(e) {
-        e.preventDefault();
-        document.getElementById("loadingOverlay").style.display = "flex";
-        isSubmitting = true;
-        const form = document.getElementById("orderForm");
-        Array.from(form.elements).forEach(element => element.disabled = true);
-        const ids = ["mango_grande", "mango_mini", "coffee_grande", "coffee_mini", "coffee_jelly", "combo_1", "combo_2", "combo_3", "combo_4", "combo_5"];
-        const products = ids.map(id => ({
-          name: id,
-          qty: +document.getElementById(id).value
-        })).filter(p => p.qty > 0);
-        fetchWithTimeout(scriptURL, {
-            method: "POST",
-            body: JSON.stringify({
-              name: customer_name.value,
-              phone: phone.value,
-              address: address.value,
-              timeslot: timeslot.value,
-              email: email.value,
-              note: note.value,
-              products
-            })
-          })
-          .then(res => res.json())
-          .then(res => {
-            isSubmitting = false;
-            document.getElementById("loadingOverlay").style.display = "none";
-            document.getElementById("orderNumber").innerText = "Order number: " + res.orderID;
-            document.getElementById("successOverlay").style.display = "flex";
-          })
-          .catch(() => {
-            isSubmitting = false;
-            document.getElementById("loadingOverlay").style.display = "none";
-            if (error.name === "AbortError") {
-              alert("Network is slow. Please check connection and try again.");
-            } else {
-              alert("Unable to place order. Please try again.");
-            }
+      function update() {
+        carousel.style.transform =
+          `translateX(-${index*(cards[0].offsetWidth+30)}px)`;
+        document.querySelectorAll(".dot")
+          .forEach((d, i) => {
+            d.classList.toggle("active", i === index);
           });
-      });
-
-      function openCartModal() {
-        populateCartTable();
-        document.getElementById("cartModal").style.display = "flex";
       }
 
-      function closeCartModal() {
-        document.getElementById("cartModal").style.display = "none";
+      function moveSlide(dir) {
+        index += dir;
+        if (index < 0) index = 0;
+        if (index > maxIndex) index = maxIndex;
+        update();
       }
 
-      function populateCartTable() {
-        const tbody = document.querySelector("#cartTable tbody");
-        tbody.innerHTML = "";
-        const products = {
-          combo_1: "The Luna's Duo",
-          combo_2: "Signature Pair",
-          combo_3: "Summer Chill Pair",
-          combo_4: "Coffee Lovers Pair",
-          combo_5: "Taste of Luna's",
-          mango_grande: "Mango Float Grande",
-          mango_mini: "Mango Float Mini",
-          coffee_grande: "Coffee Crumble Grande",
-          coffee_mini: "Coffee Crumble Mini",
-          coffee_jelly: "Coffee Jelly"
-        };
-        let hasItems = false;
-        Object.keys(products).forEach(id => {
-          const qty = parseInt(document.getElementById(id)?.value || 0);
-          if (qty > 0) {
-            hasItems = true;
-            const row = `
-        <tr>
-          <td>&nbsp;&nbsp;&nbsp;&nbsp;${products[id]}</td>
-          <td>&nbsp;&nbsp;${qty}</td>
-        </tr>
-      `;
-            tbody.insertAdjacentHTML("beforeend", row);
-          }
-        });
-        if (!hasItems) {
-          tbody.innerHTML =
-            `<tr><td colspan="2">Cart is empty</td></tr>`;
-        }
+      function goTo(i) {
+        index = i;
+        update();
       }
-
-      function outsideModalClick(event) {
-        const modalContent =
-          document.querySelector(".cart-modal-content");
-        // if user clicked outside modal box
-        if (!modalContent.contains(event.target)) {
-          closeCartModal();
-        }
-      }
+      update();
     </script>
   </body>
 
