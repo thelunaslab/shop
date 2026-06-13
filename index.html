@@ -468,6 +468,141 @@
       .cart-modal-content {
         cursor: default;
       }
+
+      .important-notice {
+        margin: 20px 15px;
+        background: #fffdf7;
+        border: 2px solid #d4af37;
+        border-radius: 22px;
+        overflow: hidden;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+      }
+
+      .notice-title {
+        background: linear-gradient(135deg,
+            #c99a1a,
+            #d4af37,
+            #c99a1a);
+        color: #fff;
+        text-align: center;
+        font-weight: 700;
+        letter-spacing: 1px;
+        font-size: 15px;
+        padding: 10px;
+        text-transform: uppercase;
+      }
+
+      .notice-icon {
+        margin-right: 10px;
+      }
+
+      .notice-item {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        padding: 10px 14px;
+      }
+
+      .notice-badge {
+        min-width: 36px;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #f8eed1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+      }
+
+      .notice-text {
+        flex: 1;
+        color: #222;
+        font-size: 14px;
+        line-height: 1.45;
+      }
+
+      .notice-text strong {
+        color: #0f5132;
+        font-weight: 700;
+      }
+
+      .notice-bottom-divider {
+        text-align: center;
+        color: #c99a1a;
+        font-size: 16px;
+        margin: 6px 26px;
+        position: relative;
+      }
+
+      .notice-bottom-divider:before,
+      .notice-bottom-divider:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        width: 42%;
+        height: 1px;
+        background: #d4af37;
+      }
+
+      .notice-bottom-divider:before {
+        left: 0;
+      }
+
+      .notice-bottom-divider:after {
+        right: 0;
+      }
+
+      .notice-footer {
+        text-align: center;
+        padding: 0 14px 12px;
+        color: #9b6b00;
+        font-size: 13px;
+        font-style: italic;
+        line-height: 1.5;
+      }
+
+      /* Mobile */
+      @media (max-width:768px) {
+        .important-notice {
+          margin: 12px 12px 16px;
+          border-radius: 16px;
+        }
+
+        .notice-title {
+          font-size: 15px;
+          padding: 10px;
+          letter-spacing: 0.5px;
+        }
+
+        .notice-item {
+          padding: 10px 14px;
+          gap: 10px;
+        }
+
+        .notice-badge {
+          width: 34px;
+          height: 34px;
+          min-width: 34px;
+          font-size: 15px;
+        }
+
+        .notice-text {
+          font-size: 14px;
+          line-height: 1.45;
+        }
+
+        .notice-bottom-divider {
+          font-size: 12px;
+          margin: 6px 14px;
+        }
+
+        .notice-footer {
+          font-size: 13px;
+          line-height: 1.4;
+          padding: 0 14px 10px;
+        }
+      }
     </style>
   </head>
 
@@ -477,6 +612,46 @@
     </div>
     <p class="subtitle">Mabuhay! Welcome sa Luna's</p>
     <div class="floating-cart" id="cartBar" onclick="openCartModal()">🧺 0</div>
+    <div class="important-notice">
+
+      <div class="notice-title">
+        <span class="notice-icon">📢</span>
+        IMPORTANT NOTICE
+      </div>
+
+      <div class="notice-item">&nbsp;
+        <div class="notice-badge">📅</div>
+        <div class="notice-text">
+          We are closed this weekend
+          <strong>(13–14 June 2026).</strong>
+        </div>
+      </div>
+
+      <div class="notice-item">&nbsp;
+        <div class="notice-badge">🚚</div>
+        <div class="notice-text">
+          Orders placed during these dates will be delivered
+          <strong>from 15 June 2026 onwards.</strong>
+        </div>
+      </div>
+
+      <div class="notice-item">&nbsp;
+        <div class="notice-badge">🛡️</div>
+        <div class="notice-text">
+          We will personally contact you to confirm the delivery date
+          <strong>before any payment is collected.</strong>
+        </div>
+      </div>
+
+      <div class="notice-bottom-divider">
+        ✦
+      </div>
+
+      <div class="notice-footer">
+        ❤️ Thank you for your understanding and continued support.
+      </div>
+
+    </div>
     <div class="message-section">
       <p>Every item is lovingly handmade in limited batches to preserve its natural freshness and ensure premium quality, free from artificial preservatives. After receiving your order, we will contact you with availability and payment details to confirm the order.</p>
       <p>Delivery is FREE for the <b>1st Order</b> in our coverage area (<b>Kalyani Nagar</b>, <b>Koregaon Park</b>, <b>Viman Nagar</b> and <b>Yerwada</b>). Delivery fee of <b>₹35</b> is applicable thereafter.</p>
